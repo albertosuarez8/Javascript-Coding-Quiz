@@ -8,7 +8,10 @@ var firstAnswerBtn = document.getElementById("first-answer-btn");
 var secondAnswerBtn = document.getElementById("second-answer-btn");
 var thirdAnswerBtn = document.getElementById("third-answer-btn");
 var fourthAnswerBtn = document.getElementById("fourth-answer-btn");
+var timer = document.getElementById("timer");
+var time = 76;
 var correctAnswer = "";
+var myInterval;
 
 var masterQuestionsList = [
     { question: "What does console.log() do?", answers: [{ text: "Logs what is in the parameter to the console", correct: true}, { text: "Declares a variable", correct: false}, { text: "Styles the console to a different color", correct: false}, { text: "Executes a block of code numerous times", correct: false}]},
@@ -23,7 +26,17 @@ function startQuiz() {
     mainCard.setAttribute("style", "display:none");
     questionCard.setAttribute("style","display:unset");
     currentQuestionsList = JSON.parse(JSON.stringify(masterQuestionsList));
+    myInterval = setInterval(updateTimer, 1000);
     updateQnA();
+}
+
+function updateTimer() {
+    if (time <= 0) {
+        gameOver();
+    } else {
+        time--;
+        timer.innerHTML = `Timer: ${time}`;
+    }
 }
 
 function updateQnA() {
@@ -34,6 +47,11 @@ function updateQnA() {
     secondAnswerBtn.innerHTML = randomQuestion.answers[1].text;
     thirdAnswerBtn.innerHTML = randomQuestion.answers[2].text;
     fourthAnswerBtn.innerHTML = randomQuestion.answers[3].text;
+}
+
+function gameOver() {
+    questionCard.setAttribute("style", "display:none;");
+    gameOverCard.setAttribute("style", "display:unset;");
 }
 
 startBtn.addEventListener("click", startQuiz);
