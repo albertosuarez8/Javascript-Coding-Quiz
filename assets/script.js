@@ -23,7 +23,7 @@ function startQuiz() {
     mainCard.setAttribute("style", "display:none");
     questionCard.setAttribute("style","display:unset");
     currentQuestionsList = JSON.parse(JSON.stringify(masterQuestionsList));
-    updateQnA;
+    updateQnA();
 }
 
 function updateQnA() {
