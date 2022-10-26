@@ -10,3 +10,23 @@ main {
     display: flex !important;
     justify-content: center;
 }
+
+#main-card-text {
+    font-size: 24px;
+}
+
+.card-body {
+    text-align: center;
+}
+
+#question-card {
+    display: none;
+}
+
+#game-over-card {
+    display: none;
+}
+
+#high-score-card {
+    display: none;
+}
