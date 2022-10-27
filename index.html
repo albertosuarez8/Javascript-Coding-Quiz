@@ -24,14 +24,15 @@
     <div id="main-card" class="card" style="width: 80rem;">
       <div class="card-body">
         <h1 class="card-title">Coding Quiz Challenge</h1>
-        <p id="main-card-text" class="card-text">Try to answer the following code-related questions within the time limit. Keep in mind that
+        <p id="main-card-text" class="card-text">Try to answer the following code-related questions within the time
+          limit. Keep in mind that
           incorrect answers will penalize your score/time by ten seconds!</p>
-          <button id="start-btn" type="button" class="btn btn-info btn-lg">Start Game</button>
+        <button id="start-btn" type="button" class="btn btn-info btn-lg">Start Game</button>
       </div>
     </div>
     <div id="question-card" class="card" style="width: 80rem;">
       <div class="card-body">
-        <h1 id="question" class="card-title"></h1>
+        <h2 id="question" class="card-title"></h2>
         <button id="first-answer-btn" type="button" class="btn btn-info btn-lg"></button>
         <button id="second-answer-btn" type="button" class="btn btn-info btn-lg"></button>
         <button id="third-answer-btn" type="button" class="btn btn-info btn-lg"></button>
@@ -41,13 +42,15 @@
     </div>
     <div id="game-over-card" class="card" style="width: 80rem;">
       <div class="card-body">
-        <h1 class="card-title">Gameover Card</h1>
-        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-          content.</p>
-        <a href="#" class="card-link">Card link</a>
-        <a href="#" class="card-link">Another link</a>
+        <h2 class="card-title">All done!</h2>
+        <p class="card-text">Your final score is:</p>
+        <p id="score"></p>
+        <div class="mb-3">
+          <input type="text" class="form-control" id="initials-input" placeholder="Enter initials" value="">
+        </div>
+        <button id="submit-score" type="submit" class="btn btn-info btn-lg">Submit</button>
       </div>
+    </div>
     </div>
     <div id="high-score-card" class="card" style="width: 80rem;">
       <div class="card-body">
