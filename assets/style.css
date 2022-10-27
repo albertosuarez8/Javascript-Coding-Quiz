@@ -44,3 +44,27 @@ main {
     display: none;
     margin-top: 175px;
 }
+
+@media screen and (max-width: 1100px) {
+    #question-container {
+        width: 385px;
+    }
+
+    #first-answer-btn {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    #second-answer-btn {
+        width: 100%;
+        margin: 10px 0;
+    }
+    #third-answer-btn {
+        width: 100%;
+        margin: 10px 0;
+    }
+    #fourth-answer-btn {
+        width: 100%;
+        margin: 10px 0;
+    }
+}

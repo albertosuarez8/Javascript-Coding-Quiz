@@ -23,7 +23,7 @@ var correctAnswer = "";
 var myInterval;
 
 var masterQuestionsList = [
-    { question: "What does console.log() do?", answers: [{ text: "Logs what is in the parameter to the console", correct: true}, { text: "Declares a variable", correct: false}, { text: "Styles the console to a different color", correct: false}, { text: "Executes a block of code numerous times", correct: false}]},
+    { question: "What does console.log() do?", answers: [{ text: "Logs what is in the () to the console", correct: true}, { text: "Declares a variable", correct: false}, { text: "Styles the console", correct: false}, { text: "Executes code numerous times", correct: false}]},
     { question: "What case type is most common in JavaScript?", answers: [{ text: "snake_case", correct: false}, { text: "kebab-case", correct: false}, { text: "PascalCase", correct: false}, { text: "camelCase", correct: true}]},
     { question: "What is an example of a common Javascript data type?", answers: [{ text: "Alert", correct: false}, { text: "Function", correct: false}, { text: "The DOM", correct: false}, { text: "Number", correct: true}]},
     { question: "What are some ways to Declare a JavaScript Variable", answers: [{ text: "Dec", correct: false}, { text: "Vari", correct: false}, { text: "Const", correct: true}, { text: "Iden", correct: false}]},
@@ -105,7 +105,22 @@ function updateScoreList() {
     showHighScorePage();
 };
 
+function populateHighScoreList() {
+    var localStorageValue = localStorage.getItem("score");
+    var parsedValue = JSON.parse(localStorageValue);
+    var orderedList = document.createElement("ol");
+    parsedValue?.sort((a,b) =>  b.score - a.score);
+    hsList.appendChild(orderedList);
+    for (let x = 0; x < parsedValue?.length; x++) {
+        var listItem = document.createElement("li");
+        orderedList.appendChild(listItem);
+        listItem.textContent = parsedValue[x].initials + " - " + parsedValue[x].score;
+    }
+}
+
 function showHighScorePage() {
+    removeChildren();
+    populateHighScoreList();
     questionCard.setAttribute("style", "display:none;");
     gameOverCard.setAttribute("style", "display:none;");
     mainCard.setAttribute("style", "display:none;");
@@ -117,11 +132,20 @@ function showMainPage() {
     highScoreCard.setAttribute("style", "display:none;");
     header.setAttribute("style", "display:flex;");
     mainCard.setAttribute("style", "display:unset;");
+    removeChildren();
 };
 
 function clearList() {
     localStorage.clear();
+    removeChildren();
 };
+
+function removeChildren() {
+    var childCount = JSON.parse(JSON.stringify(hsList.childElementCount));
+    for (let x = 0; x < childCount; x++) {
+        hsList.removeChild(hsList.firstChild);
+    }
+}
 
 viewHighScores.addEventListener("click", showHighScorePage);
 startBtn.addEventListener("click", startQuiz);
