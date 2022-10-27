@@ -12,6 +12,7 @@ var answerResponse = document.getElementById("right-or-wrong");
 var submitScore = document.getElementById("submit-score");
 var initials = document.getElementById("initials-input");
 var timer = document.getElementById("timer");
+var score = document.getElementById("score");
 var time = 76;
 var correctAnswer = "";
 var myInterval;
@@ -75,9 +76,26 @@ function checkAnswer(event) {
 };
 
 function gameOver() {
+    initials.value = "";
     questionCard.setAttribute("style", "display:none;");
+    score.innerHTML = time;
     gameOverCard.setAttribute("style", "display:unset;");
     clearInterval(myInterval);
+};
+
+function updateScoreList() {
+    var localStorageValue = localStorage.getItem("score");
+    var initialsNScore = {
+        initials: initials.value,
+        score: time
+    };
+    if (localStorageValue) {
+        var parsedValue = JSON.parse(localStorageValue);
+        parsedValue.push(initialsNScore);
+        localStorage.setItem("score", JSON.stringify(parsedValue));
+    } else {
+        localStorage.setItem("score", JSON.stringify([initialsNScore]));
+    }
 };
 
 startBtn.addEventListener("click", startQuiz);
@@ -85,3 +103,4 @@ firstAnswerBtn.addEventListener("click", checkAnswer);
 secondAnswerBtn.addEventListener("click", checkAnswer);
 thirdAnswerBtn.addEventListener("click", checkAnswer);
 fourthAnswerBtn.addEventListener("click", checkAnswer);
+submitScore.addEventListener("click", updateScoreList);
