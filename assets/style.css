@@ -11,6 +11,10 @@ main {
     justify-content: center;
 }
 
+#main-card {
+    width: 80%;
+}
+
 #main-card-text {
     font-size: 24px;
 }
@@ -29,4 +33,5 @@ main {
 
 #high-score-card {
     display: none;
+    margin-top: 175px;
 }

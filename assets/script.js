@@ -1,3 +1,4 @@
+var header = document.getElementById("header");
 var mainCard = document.getElementById("main-card");
 var questionCard = document.getElementById("question-card");
 var gameOverCard = document.getElementById("game-over-card");
@@ -11,6 +12,9 @@ var fourthAnswerBtn = document.getElementById("fourth-answer-btn");
 var answerResponse = document.getElementById("right-or-wrong");
 var submitScore = document.getElementById("submit-score");
 var initials = document.getElementById("initials-input");
+var backBtn = document.getElementById("go-back");
+var clearBtn = document.getElementById("clear-btn");
+var hsList = document.getElementById("hs-list");
 var timer = document.getElementById("timer");
 var score = document.getElementById("score");
 var time = 76;
@@ -30,6 +34,7 @@ function startQuiz() {
     mainCard.setAttribute("style", "display:none");
     questionCard.setAttribute("style","display:unset");
     currentQuestionsList = JSON.parse(JSON.stringify(masterQuestionsList));
+    time = 76;
     myInterval = setInterval(updateTimer, 1000);
     updateQnA();
 };
@@ -96,6 +101,25 @@ function updateScoreList() {
     } else {
         localStorage.setItem("score", JSON.stringify([initialsNScore]));
     }
+    showHighScorePage();
+};
+
+function showHighScorePage() {
+    questionCard.setAttribute("style", "display:none;");
+    gameOverCard.setAttribute("style", "display:none;");
+    mainCard.setAttribute("style", "display:none;");
+    header.setAttribute("style", "display:none;");
+    highScoreCard.setAttribute("style", "display:unset;");
+};
+
+function showMainPage() {
+    highScoreCard.setAttribute("style", "display:none;");
+    header.setAttribute("style", "display:flex;");
+    mainCard.setAttribute("style", "display:unset;");
+};
+
+function clearList() {
+    localStorage.clear();
 };
 
 startBtn.addEventListener("click", startQuiz);
@@ -104,3 +128,5 @@ secondAnswerBtn.addEventListener("click", checkAnswer);
 thirdAnswerBtn.addEventListener("click", checkAnswer);
 fourthAnswerBtn.addEventListener("click", checkAnswer);
 submitScore.addEventListener("click", updateScoreList);
+backBtn.addEventListener("click", showMainPage);
+clearBtn.addEventListener("click", clearList);
