@@ -8,6 +8,7 @@ var firstAnswerBtn = document.getElementById("first-answer-btn");
 var secondAnswerBtn = document.getElementById("second-answer-btn");
 var thirdAnswerBtn = document.getElementById("third-answer-btn");
 var fourthAnswerBtn = document.getElementById("fourth-answer-btn");
+var answerResponse = document.getElementById("right-or-wrong");
 var timer = document.getElementById("timer");
 var time = 76;
 var correctAnswer = "";
@@ -28,7 +29,7 @@ function startQuiz() {
     currentQuestionsList = JSON.parse(JSON.stringify(masterQuestionsList));
     myInterval = setInterval(updateTimer, 1000);
     updateQnA();
-}
+};
 
 function updateTimer() {
     if (time <= 0) {
@@ -37,7 +38,7 @@ function updateTimer() {
         time--;
         timer.innerHTML = `Timer: ${time}`;
     }
-}
+};
 
 function updateQnA() {
     var randomQuestion = currentQuestionsList.splice(Math.floor(Math.random() * currentQuestionsList.length), 1)[0];
@@ -47,15 +48,38 @@ function updateQnA() {
     secondAnswerBtn.innerHTML = randomQuestion.answers[1].text;
     thirdAnswerBtn.innerHTML = randomQuestion.answers[2].text;
     fourthAnswerBtn.innerHTML = randomQuestion.answers[3].text;
-}
+};
+
+function checkAnswer(event) {
+    if (event?.srcElement?.innerHTML != correctAnswer.text) {
+        time = time - 25 <= 0 ? 0 : time - 25; //Ternary Operator
+        timer.innerHTML = `Timer: ${time}`;
+        updateTimer();
+        answerResponse.innerHTML = "Wrong";
+        setTimeout(() => {
+            answerResponse.innerHTML = ""
+        }, 2000);
+    } else if (event?.srcElement?.innerHTML == correctAnswer.text && correctAnswer.text) {
+        answerResponse.innerHTML = "RIGHT";
+        setTimeout(() => {
+            answerResponse.innerHTML = ""
+        }, 2000);
+    }
+    if (currentQuestionsList.length == 0) {
+        gameOver();
+        return;
+    }
+    updateQnA();
+};
 
 function gameOver() {
     questionCard.setAttribute("style", "display:none;");
     gameOverCard.setAttribute("style", "display:unset;");
-}
+    clearInterval(myInterval);
+};
 
 startBtn.addEventListener("click", startQuiz);
-firstAnswerBtn.addEventListener("click", updateQnA);
-secondAnswerBtn.addEventListener("click", updateQnA);
-thirdAnswerBtn.addEventListener("click", updateQnA);
-fourthAnswerBtn.addEventListener("click", updateQnA);
+firstAnswerBtn.addEventListener("click", checkAnswer);
+secondAnswerBtn.addEventListener("click", checkAnswer);
+thirdAnswerBtn.addEventListener("click", checkAnswer);
+fourthAnswerBtn.addEventListener("click", checkAnswer);
