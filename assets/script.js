@@ -1,4 +1,5 @@
 var header = document.getElementById("header");
+var viewHighScores = document.getElementById("view-high-scores")
 var mainCard = document.getElementById("main-card");
 var questionCard = document.getElementById("question-card");
 var gameOverCard = document.getElementById("game-over-card");
@@ -122,6 +123,7 @@ function clearList() {
     localStorage.clear();
 };
 
+viewHighScores.addEventListener("click", showHighScorePage);
 startBtn.addEventListener("click", startQuiz);
 firstAnswerBtn.addEventListener("click", checkAnswer);
 secondAnswerBtn.addEventListener("click", checkAnswer);

@@ -6,6 +6,15 @@
     padding: 10px 150px;
 }
 
+#view-high-scores {
+    color: var(--info);
+    cursor: pointer;
+}
+
+#view-high-scores:hover {
+    opacity: 50%;
+}
+
 main {
     display: flex !important;
     justify-content: center;
