@@ -18,23 +18,25 @@ var clearBtn = document.getElementById("clear-btn");
 var hsList = document.getElementById("hs-list");
 var timer = document.getElementById("timer");
 var score = document.getElementById("score");
-var time = 76;
 var correctAnswer = "";
 var myInterval;
 
+// Contains the questions that will be copied over to the currentQuestionsList variable when a user starts their quiz.
 var masterQuestionsList = [
     { question: "What does console.log() do?", answers: [{ text: "Logs what is in the () to the console", correct: true}, { text: "Declares a variable", correct: false}, { text: "Styles the console", correct: false}, { text: "Executes code numerous times", correct: false}]},
     { question: "What case type is most common in JavaScript?", answers: [{ text: "snake_case", correct: false}, { text: "kebab-case", correct: false}, { text: "PascalCase", correct: false}, { text: "camelCase", correct: true}]},
     { question: "What is an example of a common Javascript data type?", answers: [{ text: "Alert", correct: false}, { text: "Function", correct: false}, { text: "The DOM", correct: false}, { text: "Number", correct: true}]},
-    { question: "What are some ways to Declare a JavaScript Variable", answers: [{ text: "Dec", correct: false}, { text: "Vari", correct: false}, { text: "Const", correct: true}, { text: "Iden", correct: false}]},
+    { question: "What are some ways to Declare a JavaScript Variable?", answers: [{ text: "Dec", correct: false}, { text: "Vari", correct: false}, { text: "Const", correct: true}, { text: "Iden", correct: false}]},
 ];
 
+// This is the current list a user is going through when testing. Once done the list has been spliced and when starting a new quiz it repopulates with the masterQuestionsList.
 var currentQuestionsList = [];
 
 function startQuiz() {
     mainCard.setAttribute("style", "display:none");
     questionCard.setAttribute("style","display:unset");
-    currentQuestionsList = JSON.parse(JSON.stringify(masterQuestionsList));
+    // Populates the currentQuestionsList with the values in the masterQuestionsList.
+    currentQuestionsList = JSON.parse(JSON.stringify(masterQuestionsList));  
     time = 76;
     myInterval = setInterval(updateTimer, 1000);
     updateQnA();
@@ -49,6 +51,7 @@ function updateTimer() {
     }
 };
 
+// Picks a randomQuestion from the currentQuestionsList and splices the currentQuestionsList in order to not have a repeated question. 
 function updateQnA() {
     var randomQuestion = currentQuestionsList.splice(Math.floor(Math.random() * currentQuestionsList.length), 1)[0];
     question.innerHTML = randomQuestion.question;
@@ -59,18 +62,21 @@ function updateQnA() {
     fourthAnswerBtn.innerHTML = randomQuestion.answers[3].text;
 };
 
+// Determines whether a question is right or wrong. When a wrong answer is selected the timer goes down. 
 function checkAnswer(event) {
     if (event?.srcElement?.innerHTML != correctAnswer.text) {
-        time = time - 25 <= 0 ? 0 : time - 25; //Ternary Operator
+        //Ternary Operator
+        time = time - 25 <= 0 ? 0 : time - 25; 
         timer.innerHTML = `Timer: ${time}`;
         updateTimer();
         answerResponse.innerHTML = "Wrong";
-        setTimeout(() => {
+        // User is told whether they got the answer wrong or right and this allows it to go away after 2 seconds.
+        setTimeout(() => { 
             answerResponse.innerHTML = ""
         }, 2000);
     } else if (event?.srcElement?.innerHTML == correctAnswer.text && correctAnswer.text) {
-        answerResponse.innerHTML = "RIGHT";
-        setTimeout(() => {
+        answerResponse.innerHTML = "Right";
+        setTimeout(() => { 
             answerResponse.innerHTML = ""
         }, 2000);
     }
@@ -89,6 +95,7 @@ function gameOver() {
     clearInterval(myInterval);
 };
 
+// Checks the localStorage for a value. If it doesn't find anything it creates a list of objects. If it finds a score it will push that score into the list of objects.
 function updateScoreList() {
     var localStorageValue = localStorage.getItem("score");
     var initialsNScore = {
@@ -109,6 +116,7 @@ function populateHighScoreList() {
     var localStorageValue = localStorage.getItem("score");
     var parsedValue = JSON.parse(localStorageValue);
     var orderedList = document.createElement("ol");
+    //Sorts values from highest to lowest scores.
     parsedValue?.sort((a,b) =>  b.score - a.score);
     hsList.appendChild(orderedList);
     for (let x = 0; x < parsedValue?.length; x++) {
@@ -140,6 +148,7 @@ function clearList() {
     removeChildren();
 };
 
+// Removes the children created for the hsList in order to avoid duplicate lists.
 function removeChildren() {
     var childCount = JSON.parse(JSON.stringify(hsList.childElementCount));
     for (let x = 0; x < childCount; x++) {

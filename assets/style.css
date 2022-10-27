@@ -6,6 +6,7 @@
     padding: 10px 150px;
 }
 
+/* Added this styling for better UI experience, used the info color from bootstrap to stay consistent to the color theme */
 #view-high-scores {
     color: var(--info);
     cursor: pointer;
@@ -15,6 +16,7 @@
     opacity: 50%;
 }
 
+/* !important was used to avoid conflict with bootstrap */
 main {
     display: flex !important;
     justify-content: center;
@@ -45,6 +47,7 @@ main {
     margin-top: 175px;
 }
 
+/* Allows for questions to be better seen by users with smaller devices */
 @media screen and (max-width: 1100px) {
     #question-container {
         width: 385px;
